@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kitewind · More lift from every AI dollar</title>
+<meta name="description" content="Kitewind shows teams what each finished, accepted piece of AI coding work really costs, then routes every job to the cheapest model that still gets it right. Join the early-access list.">
+<meta name="theme-color" content="#F5F7FA">
+<link rel="canonical" href="https://kitewind.ai/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kitewind">
+<meta property="og:title" content="Kitewind · More lift from every AI dollar">
+<meta property="og:description" content="Know what each accepted piece of AI coding work really costs, and pay less for it. Join the early-access list.">
+<meta property="og:url" content="https://kitewind.ai/">
+<meta property="og:image" content="https://kitewind.ai/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kitewind.ai/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#13203A; --cool:#F5F7FA; --white:#FFFFFF; --coral:#F47A5E; --coral-deep:#C2462A;
+    --coral-tint:#FDECE7; --slate:#4A5568; --mist:#C9D3E3; --line:#E1E7F0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--cool);color:var(--navy);font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+  a{color:inherit}
+  .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 32px}
+  header{background:var(--white);border-bottom:1px solid var(--line)}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+  .logo{display:block;line-height:0}
+  .logo svg{height:28px;width:auto;display:block}
+  .contact{font-size:15px;font-weight:500;color:var(--slate);text-decoration:none;padding:10px 0}
+  .contact:hover{color:var(--navy);text-decoration:underline}
+  main{flex:1;display:flex;align-items:center}
+  .hero{padding-top:96px;padding-bottom:88px}
+  .eyebrow{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-weight:500;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);display:flex;align-items:center;gap:10px;margin:0 0 24px}
+  .eyebrow .dot{width:9px;height:9px;background:var(--coral);transform:rotate(45deg);border-radius:1px;flex:none}
+  h1{font-weight:700;font-size:clamp(44px,7.2vw,84px);line-height:1.02;letter-spacing:-.035em;margin:0;max-width:13ch}
+  h1 span{color:var(--coral-deep)}
+  .lead{font-size:clamp(18px,1.6vw,20px);line-height:1.55;color:var(--slate);max-width:600px;margin:28px 0 0}
+  form{margin:40px 0 0;max-width:560px}
+  .field{display:flex;gap:8px;background:var(--white);border:1px solid var(--line);border-radius:14px;padding:6px;box-shadow:0 10px 30px -18px rgba(19,32,58,.35)}
+  .field:focus-within{border-color:var(--mist);box-shadow:0 0 0 3px rgba(244,122,94,.28),0 10px 30px -18px rgba(19,32,58,.35)}
+  input[type=email]{flex:1 1 auto;min-width:0;border:0;outline:none;background:transparent;font:inherit;font-size:16px;color:var(--navy);padding:0 12px;min-height:48px}
+  input[type=email]::placeholder{color:var(--slate)}
+  button{flex:none;font:inherit;font-size:16px;font-weight:600;color:var(--white);background:var(--navy);border:0;border-radius:10px;padding:0 20px;min-height:48px;cursor:pointer}
+  button:hover{background:#22335A}
+  button:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+  button[disabled]{opacity:.7;cursor:progress}
+  .hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+  .note{font-size:14px;color:var(--slate);margin:12px 0 0 2px}
+  .status{font-size:15px;font-weight:500;margin:14px 0 0 2px;min-height:1.5em}
+  .status.ok{color:var(--navy)}
+  .status.ok::before{content:"";display:inline-block;width:9px;height:9px;background:var(--coral);transform:rotate(45deg);border-radius:1px;margin-right:10px;vertical-align:1px}
+  .status.err{color:var(--coral-deep)}
+  .points{list-style:none;margin:72px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .points li{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:24px}
+  .points h2{font-size:18px;line-height:1.3;letter-spacing:-.02em;font-weight:700;margin:0 0 8px;display:flex;align-items:center;gap:10px}
+  .points h2::before{content:"";width:9px;height:9px;background:var(--coral);transform:rotate(45deg);border-radius:1px;flex:none}
+  .points p{margin:0;color:var(--slate);font-size:15px;line-height:1.55}
+  footer{border-top:1px solid var(--line)}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-top:24px;padding-bottom:24px;font-size:14px;color:var(--slate)}
+  footer a{text-decoration:none}
+  footer a:hover{text-decoration:underline;color:var(--navy)}
+  @media (max-width:860px){
+    .points{grid-template-columns:1fr}
+  }
+  @media (max-width:560px){
+    .wrap{padding:0 16px}
+    header .wrap{height:64px}
+    .logo svg{height:22px}
+    .contact{font-size:14px}
+    .hero{padding-top:56px;padding-bottom:56px}
+    .field{flex-direction:column;padding:6px}
+    button{width:100%}
+    .points{margin-top:48px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="Kitewind home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 858 129" aria-hidden="true" focusable="false"><path d="M2.93 0.00 H19.07 A2.93 2.93 0 0 1 22.00 2.93 V126.13 A2.93 2.93 0 0 1 19.07 129.07 H2.93 A2.93 2.93 0 0 1 0.00 126.13 V2.93 A2.93 2.93 0 0 1 2.93 0.00 Z" fill="#13203A"/><path d="M35.71 62.33 L86.53 5.87 L137.35 62.33 Z M35.71 66.73 L137.35 66.73 L86.53 123.20 Z" fill="#F47A5E"/><path d="M199.47 102.03V27.03H216.39V88.23L211.64 84.83L257.97 27.03H276.08L214.75 102.03ZM235.26 65.29 247.47 54.45 277.15 102.03H257.82Z M290.57 27.03H307.55V102.03H290.57Z M352.74 34.63H369.72V102.03H352.74ZM322.94 27.03H399.52V42.05H322.94Z  M590.95 95.11 585.2 95.14 606.04 27.03H623.89L599.78 102.03H578.06L554.53 35.67H561.87L538.34 102.03H516.62L492.51 27.03H510.46L531.23 95.11L525.62 95.01L549.18 27.03H567.29Z M638.77 27.03H655.75V102.03H638.77Z M746.57 90.79 740.69 91.72V27.03H757.15V102.03H735.7L687.72 37.37L693.53 36.44V102.03H677.07V27.03H699.1Z M814.14 27.03Q827.21 27.03 837.04 31.72Q846.87 36.4 852.36 44.84Q857.85 53.27 857.85 64.53Q857.85 75.76 852.36 84.21Q846.87 92.66 837.04 97.35Q827.21 102.03 814.14 102.03H778.47V27.03ZM795.39 95.36 786.8 87.01H815.37Q823.04 87.01 828.74 84.21Q834.44 81.41 837.55 76.34Q840.67 71.27 840.67 64.53Q840.67 57.69 837.55 52.67Q834.44 47.65 828.74 44.85Q823.04 42.05 815.37 42.05H786.8L795.39 33.7Z" fill="#13203A"/><path d="M419.60 27.03 H473.06 A7.05 7.05 0 0 1 480.11 34.08 V34.08 A7.05 7.05 0 0 1 473.06 41.13 H419.60 A7.05 7.05 0 0 1 412.55 34.08 V34.08 A7.05 7.05 0 0 1 419.60 27.03 Z M419.60 87.93 H473.06 A7.05 7.05 0 0 1 480.11 94.98 V94.98 A7.05 7.05 0 0 1 473.06 102.03 H419.60 A7.05 7.05 0 0 1 412.55 94.98 V94.98 A7.05 7.05 0 0 1 419.60 87.93 Z" fill="#13203A"/><path d="M419.60 57.48 H463.60 A7.05 7.05 0 0 1 470.65 64.53 V64.53 A7.05 7.05 0 0 1 463.60 71.58 H419.60 A7.05 7.05 0 0 1 412.55 64.53 V64.53 A7.05 7.05 0 0 1 419.60 57.48 Z" fill="#F47A5E"/></svg>
+</a>
+    <a class="contact" href="mailto:hello@kitewind.ai">hello@kitewind.ai</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Kitewind for Code · Early access</p>
+    <h1>More lift from every <span>AI dollar.</span></h1>
+    <p class="lead">Kitewind shows teams what each finished, accepted piece of AI coding work really costs, then routes every job to the cheapest model that still gets it right.</p>
+
+    <form id="early" action="https://formsubmit.co/hello@kitewind.ai" method="POST" novalidate>
+      <label for="email" class="hp">Work email</label>
+      <div class="field">
+        <input id="email" name="email" type="email" autocomplete="email" required placeholder="Your work email" aria-describedby="note status">
+        <button type="submit">Get early access</button>
+      </div>
+      <input type="hidden" name="_subject" value="Kitewind early access request">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://kitewind.ai/?joined=1">
+      <div class="hp" aria-hidden="true"><label for="hp-field">Leave this empty</label><input id="hp-field" type="text" name="_honey" tabindex="-1" autocomplete="off"></div>
+      <p class="note" id="note">The first teams get a free audit of their current AI coding spend. We'll only email you about early access.</p>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+    </form>
+
+    <ul class="points">
+      <li><h2>Measured, not repriced</h2><p>Cost per accepted task: work that merged and held up for 14 days, not tokens or seats.</p></li>
+      <li><h2>Routed by results</h2><p>Each job goes to the cheapest open or closed model that still gets it accepted.</p></li>
+      <li><h2>On your side</h2><p>You pay for the result, never a markup on usage. Our routing never depends on who bills you.</p></li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Kitewind</span>
+    <a href="mailto:hello@kitewind.ai">hello@kitewind.ai</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var form=document.getElementById('early'), email=document.getElementById('email'),
+      status=document.getElementById('status'), btn=form.querySelector('button');
+  function show(msg,cls){status.textContent=msg;status.className='status '+(cls||'');}
+  try{ if(new URLSearchParams(location.search).get('joined')){ show("Thanks, you're on the list. We'll be in touch.",'ok'); } }catch(e){}
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var v=(email.value||'').trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){ show('Please enter a valid email address.','err'); email.focus(); return; }
+    if(form._honey && form._honey.value){ show("Thanks, you're on the list. We'll be in touch.",'ok'); return; }
+    btn.disabled=true; show('Sending…');
+    fetch('https://formsubmit.co/ajax/hello@kitewind.ai',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({email:v,_subject:'Kitewind early access request',_template:'table',_captcha:'false',page:location.href})
+    }).then(function(r){return r.json().catch(function(){return {};}).then(function(d){return {ok:r.ok,d:d};});})
+      .then(function(res){
+        if(res.ok && String(res.d.success)==='true'){ form.reset(); show("Thanks, you're on the list. We'll be in touch.",'ok'); }
+        else { show("That didn't go through. Please email hello@kitewind.ai instead.",'err'); }
+      })
+      .catch(function(){ show("That didn't go through. Please email hello@kitewind.ai instead.",'err'); })
+      .then(function(){ btn.disabled=false; });
+  });
+})();
+</script>
+</body>
+</html>
