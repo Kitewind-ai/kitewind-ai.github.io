@@ -100,17 +100,14 @@
     <h1>More lift from every <span>AI dollar.</span></h1>
     <p class="lead">Kitewind shows teams what each finished, accepted piece of AI coding work really costs, then routes every job to the cheapest model that still gets it right.</p>
 
-    <form id="early" action="https://formsubmit.co/hello@kitewind.ai" method="POST" novalidate>
+    <form id="early" action="https://formspree.io/f/mwllbjvj" method="POST" novalidate>
       <label for="email" class="hp">Work email</label>
       <div class="field">
         <input id="email" name="email" type="email" autocomplete="email" required placeholder="Your work email" aria-describedby="note status">
         <button type="submit">Get early access</button>
       </div>
       <input type="hidden" name="_subject" value="Kitewind early access request">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_next" value="https://kitewind.ai/?joined=1">
-      <div class="hp" aria-hidden="true"><label for="hp-field">Leave this empty</label><input id="hp-field" type="text" name="_honey" tabindex="-1" autocomplete="off"></div>
+      <div class="hp" aria-hidden="true"><label for="hp-field">Leave this empty</label><input id="hp-field" type="text" name="_gotcha" tabindex="-1" autocomplete="off"></div>
       <p class="note" id="note">The first teams get a free audit of their current AI coding spend. We'll only email you about early access.</p>
       <p class="status" id="status" role="status" aria-live="polite"></p>
     </form>
@@ -140,16 +137,16 @@
     e.preventDefault();
     var v=(email.value||'').trim();
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){ show('Please enter a valid email address.','err'); email.focus(); return; }
-    if(form._honey && form._honey.value){ show("Thanks, you're on the list. We'll be in touch.",'ok'); return; }
+    if(form._gotcha && form._gotcha.value){ show("Thanks, you're on the list. We'll be in touch.",'ok'); return; }
     btn.disabled=true; show('Sending…');
     var ctl=('AbortController' in window)?new AbortController():null, timer=setTimeout(function(){ if(ctl) ctl.abort(); },15000);
-    fetch('https://formsubmit.co/ajax/hello@kitewind.ai',{
+    fetch('https://formspree.io/f/mwllbjvj',{
       method:'POST', signal:ctl?ctl.signal:undefined,
       headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify({email:v,_subject:'Kitewind early access request',_template:'table',_captcha:'false',page:location.href})
+      body:JSON.stringify({email:v,_subject:'Kitewind early access request',page:location.href})
     }).then(function(r){return r.json().catch(function(){return {};}).then(function(d){return {ok:r.ok,d:d};});})
       .then(function(res){
-        if(res.ok && String(res.d.success)==='true'){ form.reset(); show("Thanks, you're on the list. We'll be in touch.",'ok'); }
+        if(res.ok && res.d.ok){ form.reset(); show("Thanks, you're on the list. We'll be in touch.",'ok'); }
         else { show("That didn't go through. Please email hello@kitewind.ai instead.",'err'); }
       })
       .catch(function(){ show("That didn't go through. Please email hello@kitewind.ai instead.",'err'); })
