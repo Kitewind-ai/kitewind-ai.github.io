@@ -39,7 +39,10 @@
   .logo svg{height:28px;width:auto;display:block}
   .contact{font-size:15px;font-weight:500;color:var(--slate);text-decoration:none;padding:10px 0}
   .contact:hover{color:var(--navy);text-decoration:underline}
-  main{flex:1;display:flex;align-items:center}
+  main{flex:1;display:flex;align-items:center;position:relative;overflow:hidden}
+  .wind{position:absolute;left:0;top:0;width:100%;pointer-events:none;z-index:0;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0%,transparent 34%,#000 62%,#000 100%);mask-image:linear-gradient(90deg,transparent 0%,transparent 34%,#000 62%,#000 100%)}
+  .hero{position:relative;z-index:1}
   .hero{padding-top:96px;padding-bottom:88px}
   .eyebrow{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-weight:500;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);display:flex;align-items:center;gap:10px;margin:0 0 24px}
   .eyebrow .dot{width:9px;height:9px;background:var(--coral);transform:rotate(45deg);border-radius:1px;flex:none}
@@ -81,6 +84,7 @@
   footer a:hover{text-decoration:underline;color:var(--navy)}
   @media (max-width:860px){
     .points{grid-template-columns:1fr}
+    .wind{-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 30%,transparent 70%);mask-image:linear-gradient(180deg,#000 0%,#000 30%,transparent 70%);opacity:.55}
   }
   @media (max-width:560px){
     .wrap{padding:0 16px}
@@ -106,6 +110,7 @@
 </header>
 
 <main>
+  <canvas class="wind" id="wind" aria-hidden="true"></canvas>
   <div class="wrap hero">
     <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Kitewind for Code · Early access</p>
     <h1>More lift from every <span>AI dollar.</span></h1>
@@ -172,6 +177,48 @@
       .catch(function(){ show("That didn't go through. Please email hello@kitewind.ai instead.",'err'); })
       .then(function(){ clearTimeout(timer); btn.disabled=false; });
   });
+})();
+</script>
+<script>
+(function(){
+  var c=document.getElementById('wind'); if(!c||!c.getContext) return;
+  var ctx=c.getContext('2d'), main=c.parentNode, form=document.getElementById('early');
+  var reduce=window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)');
+  var W=0,H=0,dpr=1, t0=null, raf=null;
+  // each line: base height (0-1), amplitude, wavelength, speed, alpha, width
+  var lines=[[.16,16,900,.9,.16,1.25],[.27,22,760,.7,.30,1.75],[.38,14,1050,1.1,.20,1.25],
+             [.49,26,820,.6,.42,2.25],[.60,18,980,.85,.24,1.5],[.71,22,700,.75,.18,1.25],[.82,12,1100,1,.12,1]];
+  function size(){
+    dpr=Math.min(window.devicePixelRatio||1,2);
+    W=main.clientWidth;
+    var r=form.getBoundingClientRect(), m=main.getBoundingClientRect();
+    H=Math.max(320,Math.round(r.bottom-m.top+40));
+    c.style.height=H+'px'; c.width=Math.round(W*dpr); c.height=Math.round(H*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  function y(L,x,t){ return L[0]*H + L[1]*Math.sin((x/L[2])*6.283 - t*L[3]*.55) + L[1]*.45*Math.sin((x/(L[2]*.47))*6.283 + t*L[3]*.35); }
+  function draw(t){
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<lines.length;i++){
+      var L=lines[i]; ctx.beginPath();
+      for(var x=-10;x<=W+10;x+=8){ var yy=y(L,x,t); if(x<0) ctx.moveTo(x,yy); else ctx.lineTo(x,yy); }
+      ctx.strokeStyle='rgba(244,122,94,'+L[4]+')'; ctx.lineWidth=L[5]; ctx.lineCap='round'; ctx.stroke();
+    }
+    if(W<860) return; // no kite on narrow screens: it would cross the text
+    // the kite: a small diamond riding the strongest line, drifting across the right half
+    var K=lines[3], span=W*.42, kx=W*.56 + ((t*22)%span), ky=y(K,kx,t)-30,
+        tilt=Math.atan2(y(K,kx+6,t)-y(K,kx-6,t),12)*.6, fade=Math.min(1,(kx-W*.56)/60,(W*.98-kx)/60);
+    ctx.save(); ctx.globalAlpha=Math.max(0,fade)*.9; ctx.translate(kx,ky); ctx.rotate(tilt);
+    ctx.beginPath(); ctx.moveTo(0,-11); ctx.lineTo(8,0); ctx.lineTo(0,11); ctx.lineTo(-8,0); ctx.closePath();
+    ctx.fillStyle='#F47A5E'; ctx.fill();
+    ctx.beginPath(); ctx.moveTo(0,11); ctx.quadraticCurveTo(-6,22,0,30); ctx.strokeStyle='rgba(244,122,94,.6)'; ctx.lineWidth=1.25; ctx.stroke();
+    ctx.restore();
+  }
+  function frame(ts){ if(t0===null) t0=ts; draw((ts-t0)/1000); raf=requestAnimationFrame(frame); }
+  function start(){ cancelAnimationFrame(raf); size(); if(reduce&&reduce.matches){ draw(4); } else { t0=null; raf=requestAnimationFrame(frame); } }
+  var rt; window.addEventListener('resize',function(){ clearTimeout(rt); rt=setTimeout(start,150); });
+  if(reduce&&reduce.addEventListener) reduce.addEventListener('change',start);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(start); else start();
 })();
 </script>
 </body>
