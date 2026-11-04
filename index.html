@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kitewind · More lift from every AI dollar</title>
-<meta name="description" content="Kitewind shows teams what each finished, accepted piece of AI coding work really costs, then routes every job to the cheapest model that still gets it right. Join the early-access list.">
+<title>Kitewind · Frontier results. Not frontier bills.</title>
+<meta name="description" content="Kitewind works like one model in your coding agent. Every task goes to the model that gets it done right for the least, and you pay for finished work, not tokens. Join the early-access list.">
 <meta name="theme-color" content="#F5F7FA">
 <link rel="canonical" href="https://kitewind.ai/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -12,8 +12,8 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Kitewind">
-<meta property="og:title" content="Kitewind · More lift from every AI dollar">
-<meta property="og:description" content="Know what each accepted piece of AI coding work really costs, and pay less for it. Join the early-access list.">
+<meta property="og:title" content="Kitewind · Frontier results. Not frontier bills.">
+<meta property="og:description" content="Frontier results, not frontier bills: every coding task goes to the model that gets it right for the least. Join the early-access list.">
 <meta property="og:url" content="https://kitewind.ai/">
 <meta property="og:image" content="https://kitewind.ai/og.png">
 <meta property="og:image:width" content="1200">
@@ -99,6 +99,27 @@
     .result{margin-top:40px;padding:22px 20px 20px}
     .stats{grid-template-columns:1fr;gap:22px}
   }
+  .points code{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.92em;background:rgba(19,32,58,.06);border-radius:4px;padding:1px 5px}
+  .result h2{font-size:clamp(22px,2.6vw,30px);line-height:1.15;letter-spacing:-.025em;margin:0;max-width:24ch}
+  .result h2 span{color:var(--coral-deep)}
+  .result .sub{margin:8px 0 0;font-size:15px;color:var(--slate)}
+  .bars{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:14px}
+  .bars li{position:relative;display:grid;grid-template-columns:120px 1fr 64px;align-items:center;gap:14px;outline:none}
+  .bars .nm{font-size:15px;font-weight:600}
+  .bars .track{height:28px;border-radius:0 6px 6px 0;background:var(--cool);border-left:1px solid var(--mist)}
+  .bars i{display:block;height:100%;background:var(--navy);border-radius:0 6px 6px 0;opacity:.85}
+  .bars .v{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:14px;text-align:right;color:var(--navy)}
+  .bars .kw .nm{color:var(--coral-deep);font-weight:700;font-size:16px}
+  .bars .kw .track{height:36px}
+  .bars .kw i{background:var(--coral);opacity:1;box-shadow:inset 0 0 0 2px var(--coral-deep)}
+  .bars .kw .v{font-weight:700;font-size:16px}
+  .bars .pending .nm,.bars .pending .v{color:var(--slate);font-weight:500}
+  .bars .pending .track{background:repeating-linear-gradient(135deg,var(--cool) 0 8px,var(--line) 8px 10px)}
+  .bars .tip{position:absolute;left:134px;bottom:calc(100% + 6px);background:var(--navy);color:var(--white);font-size:13px;padding:6px 10px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .12s;z-index:2}
+  .bars li:hover .tip,.bars li:focus .tip{opacity:1}
+  .result .scope{margin-top:28px}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  @media (max-width:560px){.bars li{grid-template-columns:92px 1fr 52px;gap:10px}.bars .nm{font-size:14px}.bars .tip{left:0;white-space:normal;width:100%}}
 </style>
 </head>
 <body>
@@ -114,8 +135,8 @@
   <canvas class="wind" id="wind" aria-hidden="true"></canvas>
   <div class="wrap hero">
     <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Kitewind for Code · Early access</p>
-    <h1>More lift from every <span>AI dollar.</span></h1>
-    <p class="lead">Kitewind shows teams what each finished, accepted piece of AI coding work really costs, then routes every job to the cheapest model that still gets it right.</p>
+    <h1>Frontier results. <span>Not frontier bills.</span></h1>
+    <p class="lead">One model in your coding agent. Behind it, every task goes to the model that gets it right for the least.</p>
 
     <form id="early" action="https://formspree.io/f/mwllbjvj" method="POST" novalidate>
       <label for="email" class="hp">Work email</label>
@@ -125,24 +146,22 @@
       </div>
       <input type="hidden" name="_subject" value="Kitewind early access request">
       <div class="hp" aria-hidden="true"><label for="hp-field">Leave this empty</label><input id="hp-field" type="text" name="_gotcha" tabindex="-1" autocomplete="off"></div>
-      <p class="note" id="note">The first teams get a free audit of their current AI coding spend. We'll only email you about early access.</p>
+      <p class="note" id="note">The first teams get a free audit of what their AI coding really costs today. We'll only email you about early access.</p>
       <p class="status" id="status" role="status" aria-live="polite"></p>
     </form>
 
-    <section class="result" aria-labelledby="result-tag">
-      <p class="tag" id="result-tag"><span class="dot" aria-hidden="true"></span>First result · Measured October 2026</p>
-      <dl class="stats">
-        <div><dt>78% lower</dt><dd>cost per task that passed its hidden tests, compared with plain Claude Code on Opus for everything</dd></div>
-        <div><dt>5.3 points lower</dt><dd>first-pass success: 87.7% with Kitewind routing vs 93.0% on Opus</dd></div>
-      </dl>
-      <p class="scope">19 real tasks from our own codebase, 3 runs each, with the pass mark fixed before the test ran. One codebase and Anthropic models only so far; more codebases and providers are next.</p>
-      <p class="live">Also measured on our own live work, 24 to 31 October: 99% of our AI coding spend was tied to a specific task, the base every cost figure stands on.</p>
+    <section class="result" aria-labelledby="result-title">
+      <p class="tag"><span class="dot" aria-hidden="true"></span>Our first test · October 2026</p>
+      <h2 id="result-title">Within 5 points of Opus. <span>18 of 19 tasks solved, like Opus.</span></h2>
+      <p class="sub">Share of coding tasks that passed hidden tests on the first try</p>
+      <ul class="bars"><li class="" tabindex="0"><span class="nm">Opus 5.5</span><span class="track"><i style="width:93.0%"></i></span><span class="v">93.0%</span><span class="tip">Opus 5.5: 93.0% passed first try · 18 of 19 tasks solved</span></li><li class="kw" tabindex="0"><span class="nm">Kitewind</span><span class="track"><i style="width:87.7%"></i></span><span class="v">87.7%</span><span class="tip">Kitewind: 87.7% passed first try · 18 of 19 tasks solved</span></li><li class="" tabindex="0"><span class="nm">Sonnet 5.5</span><span class="track"><i style="width:80.7%"></i></span><span class="v">80.7%</span><span class="tip">Sonnet 5.5: 80.7% passed first try · 16 of 19 tasks solved</span></li><li class="" tabindex="0"><span class="nm">Haiku 5.5</span><span class="track"><i style="width:64.9%"></i></span><span class="v">64.9%</span><span class="tip">Haiku 5.5: 64.9% passed first try · 13 of 19 tasks solved</span></li><li class="pending"><span class="nm">GPT-6 Astra</span><span class="track"></span><span class="v">next</span></li></ul>
+      <p class="scope">19 real tasks from our own codebase, 3 runs each, pass mark set before the runs. GPT-6 Astra is next on the same tasks. Pilots on other teams' code start in November.</p>
     </section>
 
     <ul class="points">
-      <li><h2>Measured, not repriced</h2><p>Cost per accepted task: work that merged and held up for 14 days, not tokens or seats.</p></li>
-      <li><h2>Routed by results</h2><p>Each job goes to the cheapest open or closed model that still gets it accepted.</p></li>
-      <li><h2>On your side</h2><p>You pay for the result, with no hidden markup on usage. Our routing never depends on who bills you.</p></li>
+      <li><h2>The right model, every task</h2><p>Keep typing <code>claude</code>. Routine work stops paying frontier prices.</p></li>
+      <li><h2>Each model earns its tasks</h2><p>A cheaper model only gets work it has passed hidden tests on.</p></li>
+      <li><h2>Pay for code that ships</h2><p>Pay for work that merges and holds up for 14 days. Not tokens.</p></li>
     </ul>
   </div>
 </main>
