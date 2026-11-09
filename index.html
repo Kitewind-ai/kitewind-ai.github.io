@@ -103,6 +103,7 @@
   .result h2{font-size:clamp(22px,2.6vw,30px);line-height:1.15;letter-spacing:-.025em;margin:0;max-width:24ch}
   .result h2 span{color:var(--coral-deep)}
   .result .sub{margin:8px 0 0;font-size:15px;color:var(--slate)}
+  .result h2 + .stats{margin-top:28px}
   .bars{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:14px}
   .bars li{position:relative;display:grid;grid-template-columns:120px 1fr 64px;align-items:center;gap:14px;outline:none}
   .bars .nm{font-size:15px;font-weight:600}
@@ -151,11 +152,21 @@
     </form>
 
     <section class="result" aria-labelledby="result-title">
-      <p class="tag"><span class="dot" aria-hidden="true"></span>Our first test · October 2026</p>
+      <p class="tag"><span class="dot" aria-hidden="true"></span>Against frontier models · October 2026</p>
       <h2 id="result-title">Within 5 points of Opus. <span>18 of 19 tasks solved, like Opus.</span></h2>
       <p class="sub">Share of coding tasks that passed hidden tests on the first try</p>
-      <ul class="bars"><li class="" tabindex="0"><span class="nm">Opus 5.5</span><span class="track"><i style="width:93.0%"></i></span><span class="v">93.0%</span><span class="tip">Opus 5.5: 93.0% passed first try · 18 of 19 tasks solved</span></li><li class="kw" tabindex="0"><span class="nm">Kitewind</span><span class="track"><i style="width:87.7%"></i></span><span class="v">87.7%</span><span class="tip">Kitewind: 87.7% passed first try · 18 of 19 tasks solved</span></li><li class="" tabindex="0"><span class="nm">Sonnet 5.5</span><span class="track"><i style="width:80.7%"></i></span><span class="v">80.7%</span><span class="tip">Sonnet 5.5: 80.7% passed first try · 16 of 19 tasks solved</span></li><li class="" tabindex="0"><span class="nm">Haiku 5.5</span><span class="track"><i style="width:64.9%"></i></span><span class="v">64.9%</span><span class="tip">Haiku 5.5: 64.9% passed first try · 13 of 19 tasks solved</span></li><li class="pending"><span class="nm">GPT-6 Astra</span><span class="track"></span><span class="v">next</span></li></ul>
-      <p class="scope">19 real tasks from our own codebase, 3 runs each, pass mark set before the runs. GPT-6 Astra is next on the same tasks. Pilots on other teams' code start in November.</p>
+      <ul class="bars"><li class="" tabindex="0"><span class="nm">Opus 5.5</span><span class="track"><i style="width:93.0%"></i></span><span class="v">93.0%</span><span class="tip">Opus 5.5: 93.0% passed first try · 18 of 19 tasks solved</span></li><li class="kw" tabindex="0"><span class="nm">Kitewind v1</span><span class="track"><i style="width:87.7%"></i></span><span class="v">87.7%</span><span class="tip">Kitewind v1: 87.7% passed first try · 18 of 19 tasks solved</span></li><li class="" tabindex="0"><span class="nm">Sonnet 5.5</span><span class="track"><i style="width:80.7%"></i></span><span class="v">80.7%</span><span class="tip">Sonnet 5.5: 80.7% passed first try · 16 of 19 tasks solved</span></li><li class="" tabindex="0"><span class="nm">Haiku 5.5</span><span class="track"><i style="width:64.9%"></i></span><span class="v">64.9%</span><span class="tip">Haiku 5.5: 64.9% passed first try · 13 of 19 tasks solved</span></li><li class="pending"><span class="nm">GPT-6 Astra</span><span class="track"></span><span class="v">next</span></li></ul>
+      <p class="scope">19 real tasks from our own codebase, 3 runs each, pass mark set before the runs. GPT-6 Astra is next on the same tasks.</p>
+    </section>
+
+    <section class="result" aria-labelledby="gate3-title">
+      <p class="tag"><span class="dot" aria-hidden="true"></span>Against open models · November 2026</p>
+      <h2 id="gate3-title">Ahead of some of the best open models. <span>More tasks solved, at a third of the cost or less.</span></h2>
+      <dl class="stats">
+        <div><dt>16 of 19</dt><dd>tasks solved by Kitewind v1 on the first try. The best of six open models solved 13.</dd></div>
+        <div><dt>3–179×</dt><dd>what the open models cost per finished task, compared with Kitewind v1.</dd></div>
+      </dl>
+      <p class="scope">The same 19 tasks, with six open models served by a major cloud provider. One run per task, so 16 is a first-try count, not the three-run measure above. One round on one provider: a first read, not the last word. Our first pilot, at the founder's own company, starts in December; outside teams follow.</p>
     </section>
 
     <ul class="points">
